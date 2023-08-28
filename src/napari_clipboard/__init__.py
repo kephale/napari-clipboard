@@ -1,7 +1,6 @@
 __version__ = "0.0.1"
-from ._widget import ExampleQWidget, example_magic_widget
+from ._widget import image_from_clipboard
 
 __all__ = (
-    "ExampleQWidget",
-    "example_magic_widget",
+    "image_from_clipboard",
 )

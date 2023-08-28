@@ -9,38 +9,28 @@ Replace code below according to your needs.
 from typing import TYPE_CHECKING
 
 from magicgui import magic_factory
-from qtpy.QtWidgets import QHBoxLayout, QPushButton, QWidget
+from qtpy.QtWidgets import QApplication
 
-if TYPE_CHECKING:
-    import napari
+import numpy as np
 
+import napari
 
-class ExampleQWidget(QWidget):
-    # your QWidget.__init__ can optionally request the napari viewer instance
-    # in one of two ways:
-    # 1. use a parameter called `napari_viewer`, as done here
-    # 2. use a type annotation of 'napari.viewer.Viewer' for any parameter
-    def __init__(self, napari_viewer):
-        super().__init__()
-        self.viewer = napari_viewer
+# TODO figure out if the button can be disabled
+@magic_factory(layout="horizontal", call_button="New Image from Clipboard")
+def image_from_clipboard(viewer: "napari.viewer.Viewer"):
 
-        btn = QPushButton("Click me!")
-        btn.clicked.connect(self._on_click)
+    clipboard = QApplication.instance().clipboard()
 
-        self.setLayout(QHBoxLayout())
-        self.layout().addWidget(btn)
+    mime_data = clipboard.mimeData()
 
-    def _on_click(self):
-        print("napari has", len(self.viewer.layers), "layers")
+    if mime_data.hasImage():
 
-
-@magic_factory
-def example_magic_widget(img_layer: "napari.layers.Image"):
-    print(f"you have selected {img_layer}")
-
-
-# Uses the `autogenerate: true` flag in the plugin manifest
-# to indicate it should be wrapped as a magicgui to autogenerate
-# a widget.
-def example_function_widget(img_layer: "napari.layers.Image"):
-    print(f"you have selected {img_layer}")
+        image = mime_data.imageData()
+        ptr = image.bits()
+        ptr.setsize(image.byteCount())
+        arr = np.array(ptr).reshape(image.height(), image.width(), 4)  # 4 for RGBA
+        
+        viewer.add_image(arr)
+    
+    else:
+        napari.utils.notifications.show_info("Cannot create layer from current clipboard contents.")

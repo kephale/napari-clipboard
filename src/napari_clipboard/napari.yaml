@@ -2,20 +2,9 @@ name: napari-clipboard
 display_name: napari clipboard
 contributions:
   commands:
-    - id: napari-clipboard.make_qwidget
-      python_name: napari_clipboard._widget:ExampleQWidget
-      title: Make example QWidget
-    - id: napari-clipboard.make_magic_widget
-      python_name: napari_clipboard._widget:example_magic_widget
-      title: Make example magic widget
-    - id: napari-clipboard.make_func_widget
-      python_name: napari_clipboard._widget:example_function_widget
-      title: Make example function widget
+    - id: napari-clipboard.image_from_clipboard
+      python_name: napari_clipboard._widget:image_from_clipboard
+      title: New Image from clipboard
   widgets:
-    - command: napari-clipboard.make_qwidget
-      display_name: Example QWidget
-    - command: napari-clipboard.make_magic_widget
-      display_name: Example Magic Widget
-    - command: napari-clipboard.make_func_widget
-      autogenerate: true
-      display_name: Example Function Widget
+    - command: napari-clipboard.image_from_clipboard
+      display_name: New Image from clipboard
