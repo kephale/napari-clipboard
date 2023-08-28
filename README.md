@@ -9,6 +9,8 @@
 
 A plugin for creating napari layers from the System clipboard
 
+![Example screenshot of napari-clipboard showing an image taken from a clipboard.](./example_image.png)
+
 ----------------------------------
 
 This [napari] plugin was generated with [Cookiecutter] using [@napari]'s [cookiecutter-napari-plugin] template.
