@@ -6,8 +6,6 @@ see: https://napari.org/stable/plugins/guides.html?#widgets
 
 Replace code below according to your needs.
 """
-from typing import TYPE_CHECKING
-
 from magicgui import magic_factory
 from qtpy.QtWidgets import QApplication
 
